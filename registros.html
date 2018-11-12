@@ -7,11 +7,116 @@
     <title>Registros</title>
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="stylesheet" href="css/bootstrap.css">
+
+    <script>        
+            function init() {
+                initDBEngine();
+                openDB();
+    
+                // Adiciona Listerners
+                $("#btnInsert").click(function () {
+                    if (!$('#form-veiculo')[0].checkValidity()) {
+                        displayMessage("Preencha o formulário corretamente.");
+                        return;
+                    }
+                    let campoNome = $("#inputNome").val();
+                    let campoVersao = $("#inputVersao").val();
+                    let campoMontadora = $("#inputMontadora").val();
+                    let campoAno = $("#inputAno").val();
+                    let campoCombustivel = $("#inputCombustivel").val();
+                    let campoPotencia = $("#inputPotencia").val();
+                    let campoFipe = $("#inputFipe").val();
+
+                    let veiculo = { nome: campoNome, versao: campoVersao, montatora: campoMontadora, ano: campoAno, combustivel: campoCombustivel, potencia: campoPotencia, fipe: campoFipe };
+    
+                    insertVeiculo(veiculo);
+                    $("#form-veiculo")[0].reset();
+                    setTimeout(exibeVeiculos, 200);
+                });
+    
+                // Intercepta o click do botão Alterar
+                $("#btnUpdate").click(function () {
+                    let campoId = $("#inputId").val();
+                    if (campoId == "") {
+                        displayMessage("Informe o ID do contato a ser alterado e a alteração desejada.");
+                        return;
+                    }
+                    let campoNome = $("#inputNome").val();
+                    let campoVersao = $("#inputVersao").val();
+                    let campoMontadora = $("#inputMontadora").val();
+                    let campoAno = $("#inputAno").val();
+                    let campoCombustivel = $("#inputCombustivel").val();
+                    let campoPotencia = $("#inputPotencia").val();
+                    let campoFipe = $("#inputFipe").val();
+
+                    let veiculo = { nome: campoNome, versao: campoVersao, montatora: campoMontadora, ano: campoAno, combustivel: campoCombustivel, potencia: campoPotencia, fipe: campoFipe };
+    
+                    updateVeiculo(campoId, veiculo);
+                    $("#form-veiculo")[0].reset();
+                    setTimeout(exibeVeiculos, 200);
+                });
+    
+                // Intercepta o click do botão Excluir
+                $("#btnDelete").click(function () {
+                    let campoId = $("#inputId").val();
+                    if (campoId == "") {
+                        displayMessage("Informe o ID do contato a ser excluído.");
+                        return;
+                    }
+                    deleteVeiculo(campoId);
+                    $("#form-veiculo")[0].reset();
+                    setTimeout(exibeVeiculos, 200);
+                });
+    
+                // Intercepta o click do botão Listar Contatos
+                $("#btnList").click(function () {
+                    exibeVeiculos();
+                });
+    
+                // Intercepta o click do botão Listar Contatos
+                $("#btnClear").click(function () {
+                    $("#form-veiculos")[0].reset();
+                });
+    
+                // Oculta a mensagem de aviso após alguns segundos
+                $('#msg').bind("DOMSubtreeModified", function () {
+                    window.setTimeout(function () {
+                        $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                            $(this).remove();
+                        });
+                    }, 5000);
+                });
+    
+                $("#grid-veiculos").on("click", "tr", function (e) {
+                    let linhaVeiculo = this;
+                    $("#inputId").val(linhaVeiculo.childNodes[0].firstChild.nodeValue);
+                    $("#inputNome").val(linhaVeiculo.childNodes[1].firstChild.nodeValue);
+                    $("#inputVersao").val(linhaVeiculo.childNodes[2].firstChild.nodeValue);
+                    $("#inputMontadora").val(linhaVeiculo.childNodes[3].firstChild.nodeValue);
+                    $("#inputAno").val(linhaVeiculo.childNodes[4].firstChild.nodeValue);
+                    $("#inputCombustivel").val(linhaVeiculo.childNodes[5].firstChild.nodeValue);
+                    $("#inputPotencia").val(linhaVeiculo.childNodes[6].firstChild.nodeValue);
+                    $("#inputFipe").val(linhaVeiculo.childNodes[7].firstChild.nodeValue);
+                });
+    
+                setTimeout(exibeVeiculos, 200);
+            }
+    
+            function exibeVeiculos() {
+                $("#table-veiculos").html("");
+                getAllVeiculos(function (veiculo) {
+                    $("#table-veiculos").append("<tr><td scope=\"row\">" + veiculo.id + "</th><td>" + veiculo.nome
+                        + "</td><td>" + veiculo.versao + "</td><td>" + veiculo.montadora + "</td><td>" + veiculo.ano + "</td><td>" + veiculo.combustivel + "</td><td>" + veiculo.potencia + "</td><td>" + veiculo.fipe + "</td></tr>");
+                });
+            }
+        
+        </script>
+
 </head>
-<body class="fundo">
+<body onload="init()">
     <div class="container">
             <div class="jumbotron">
-                    <h1 class="display-4"><b>Sistema de cadastro e veículos </b></h1>
+                    <h1 class="display-4"><b>Sistema de cadastro de veículos </b></h1>
                     <p class="lead">Márcio Júnio Praxedes</p>
                     <hr class="my-4">
                     <p>Selecione uma das opções abaixos</p>
@@ -21,7 +126,37 @@
                             <a class="flex-sm-fill text-sm-center nav-link" href="ficha.html">Ficha</a>
                             <a class="flex-sm-fill text-sm-center nav-link active" href="registros.html">Registros</a>
                         </nav>
-            </div>    
+            </div> 
+            
+            <div class="row">
+                    <div class="col-sm-12">
+                        <table id="grid-veiculos" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nome</th>
+                                    <th scope="col">Versao</th>
+                                    <th scope="col">Montadora</th>
+                                    <th scope="col">Ano</th>
+                                    <th scope="col">Combustivel</th>
+                                    <th scope="col">Potencia</th>
+                                    <th scope="col">Fipe</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-veiculos">
+                                <tr>
+                                    <td scope="row">1</th>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
     </div>   
+
+    <script type="text/javascript" src="js/db.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 </body>
 </html>
