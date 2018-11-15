@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Registros</title>
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="stylesheet" href="css/bootstrap.css">
-
-
-
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="js/bootstrap.js"></script>
+  
 </head>
-<body onload="exibirRegistros()">
+<body onload="iniciar()">
+
+<!-- Inicio do menu -->
     <div class="container">
             <div class="jumbotron">
                     <h1 class="display-4"><b>Sistema de cadastro de veículos </b></h1>
@@ -25,35 +29,88 @@
                             <a class="flex-sm-fill text-sm-center nav-link" href="registros.html">Registros</a>
                         </nav>
             </div> 
-            
+<!-- Fim do menu            -->
+
 <h2>Cadastre aqui</h2>
 
-<!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-    Launch demo modal
+    Novo Cadastro
   </button>
+  <button type="button" class="btn btn-warning" onclick="exibirRegistros()" >
+        Atualizar
+      </button>
+  <br><br>
   
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+  <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Preencha os dados do veículo</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <!-- Inicio do form -->
+                    <form id="form-veiculo">
+                            <div class="form-group row">
+                                <div class="col-sm-4">
+                                    <label for="inputId">Id</label>
+                                    <input type="text" class="form-control" id="inputId" placeholder="ID" disabled>
+                                </div>
+                                <div class="col-sm-5">
+                                    <label for="inputNome">Nome (*)</label>
+                                    <input type="text" class="form-control" id="inputNome" required placeholder="Informe o nome do veículo">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-5">
+                                    <label for="inputVersao">Versão (*)</label>
+                                    <input type="text" class="form-control" id="inputVersao" required placeholder="Versao">
+                                </div>
+                                <div class="col-sm-5">
+                                    <label for="inputMontadora">Montadora (*)</label>
+                                    <input type="text" class="form-control" id="inputMontadora" required placeholder="Montatora">
+                                </div>
+                                <div class="col-sm-5">
+                                    <label for="inputAno">Ano (*)</label>
+                                    <input type="number" class="form-control" id="inputAno" required placeholder="Ano">
+                                </div> 
+                                <div class="col-sm-5">
+                                        <label for="inputCombustivel">Combustivel (*)</label>
+                                        <input type="text" class="form-control" id="inputCombustivel" required placeholder="Combustivel">
+                                    </div>                                  
+                                <div class="col-sm-5">
+                                        <label for="inputPotencia">Potência (*)</label>
+                                        <input type="text" class="form-control" id="inputPotencia" required placeholder="Potência">
+                                </div>
+                                <div class="col-sm-5">
+                                        <label for="inputFipe">Preço tabela FIPE (*)</label>
+                                        <input type="text" class="form-control" id="inputFipe" required placeholder="Preço">
+                                </div>  
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-4">
+                                    <small>(*) Campos obrigatórios</small>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-12">                                    
+                                    <input type="button" class="btn btn-warning" id="btnUpdate" value="Alterar">
+                                    <input type="button" class="btn btn-secondary" id="btnClear" value="Limpar Form">
+                                </div>
+                            </div>
+                        </form>
+                        <!-- Final do form -->
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+              <input type="button" class="btn btn-success" id="btnInsert" value="Cadastrar">
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-<!-- Fim - Modal para registro -->
+
 
 <!-- inicio - Tabela -->
             <div class="row">
@@ -93,27 +150,104 @@
         // Inicio - Exibição de Registros
         function exibirRegistros() {
             $("#table-veiculos").html("");
-            
-            let btn = '<input type="button" class="btn btn-success" id="btnInsert" value="Inserir">';
-                
+                         
             for (i = 0; i < db.registros.length; i++) {
                 let registro = db.registros[i];
                 
-                $("#table-veiculos").append(`<tr><td scope="row">${registro.id}</td><td>${registro.veiculo}</td><td>${registro.versao}</td><td>${registro.montadora}</td><td>${registro.ano}</td><td>${registro.combustivel}</td><td>${registro.potencia}</td><td>${registro.fipe}</td><td><input type="button" onclick="alterar()"  class="btn btn-warning" id="btnUpdate" value="Alterar"></td></td><td><input type="button" class="btn btn-danger" id="btnDelete" value="Excluir"></tr>`);
+                $("#table-veiculos").append(`<tr><td scope="row">${registro.id}</td><td>${registro.veiculo}</td><td>${registro.versao}</td><td>${registro.montadora}</td><td>${registro.ano}</td><td>${registro.combustivel}</td><td>${registro.potencia}</td><td>${registro.fipe}</td><td><button type="button" class="btn btn-warning" id="btnUpdate" data-toggle="modal" data-target="#exampleModal">Alterar</button></td></td><td><input type="button" class="btn btn-danger" id="btnDelete" value="Excluir"></tr>`);
 
             }
         }
         // Fim - Exibição dos Registros
-        
-        
+        function iniciar(){     
+            // Adiciona funções para tratar os eventos 
+            $("#btnInsert").click(function () {
+                // Verfica se o formulário está preenchido corretamente
+                if (!$('#form-veiculo')[0].checkValidity()) {
+                    displayMessage("Preencha o formulário corretamente.");
+                    return;
+                }
+
+                // Obtem os valores dos campos do formulário
+                let campoNome = $("#inputNome").val();
+                let campoVersao = $("#inputVersao").val();
+                let campoMontadora = $('#inputMontadora').val();
+                let campoAno = $('#inputAno').val();
+                let campoCombustivel = $('#inputCombustivel').val();
+                let campoPotencia = $('#inputPotencia').val();
+                let campoFipe = $('#inputFipe').val();
+
+                let veiculo = { nome: campoNome, versao: campoVersao, montadora: campoMontadora, ano: campoAno, combustivel: campoCombustivel, potencia: campoPotencia, fipe: campoFipe };
+
+                inserirRegistros(veiculo);
+
+                // Reexibe os contatos
+                exibirRegistros();
+
+                // Limpa o formulario
+                $("#form-veiculo")[0].reset();
+            }); 
+
+                // Intercepta o click do botão Alterar
+                $("#btnUpdate").click(function () {
+                // Obtem os valores dos campos do formulário
+                let campoId = $("#inputId").val();
+                if (campoId == "") {
+                    displayMessage("Selecione um contato para ser alterado.");
+                    return;
+                }
+                let campoNome = $("#inputNome").val();
+                let campoVersao = $("#inputVersao").val();
+                let campoMontadora = $('#inputMontadora').val();
+                let campoAno = $('#inputAno').val();
+                let campoCombustivel = $('#inputCombustivel').val();
+                let campoPotencia = $('#inputPotencia').val();
+                let campoFipe = $('#inputFipe').val();
+
+                let veiculo = { nome: campoNome, versao: campoVersao, montadora: campoMontadora, ano: campoAno, combustivel: campoCombustivel, potencia: campoPotencia, fipe: campoFipe };
+
+                alterarRegistro(parseInt(campoId), veiculo);
+
+                // Reexibe os contatos
+                exibirRegistros();
+
+                // Limpa o formulario
+                $("#form-contato")[0].reset();
+            });
+
+                // Intercepta o click do botão Excluir
+                $("#btnDelete").click(function () {
+                let campoId = $("#inputId").val();
+                if (campoId == "") {
+                    displayMessage("Selecione um contato a ser excluído.");
+                    return;
+                }
+                deletarRegistro(parseInt(campoId));
+
+                // Reexibe os contatos
+                exibirRegistros();
+
+                // Limpa o formulario
+                $("#form-contato")[0].reset();
+            });
 
 
-        // Inicio - Inserção de Registros
+                // Preenche o formulário quando o usuario clicar em uma linha da tabela 
+                $("#grid-veiculos").on("click", "tr", function (e) {
+                let linhaVeiculo = this;
+                $("#inputId").val(linhaVeiculo.childNodes[0].firstChild.nodeValue);
+                $("#inputNome").val(linhaVeiculo.childNodes[1].firstChild.nodeValue);
+                $("#inputVersao").val(linhaVeiculo.childNodes[2].firstChild.nodeValue);
+                $("#inputMontatora").val(linhaVeiculo.childNodes[3].firstChild.nodeValue);
+                $("#inputAno").val(linhaVeiculo.childNodes[4].firstChild.nodeValue);
+                $("#inputCombustivel").val(linhaVeiculo.childNodes[5].firstChild.nodeValue);
+                $("#inputPotencia").val(linhaVeiculo.childNodes[6].firstChild.nodeValue);
+                $("#inputFipe").val(linhaVeiculo.childNodes[7].firstChild.nodeValue);
+            });
 
-        function inserirRegistros() {
+            exibirRegistros();
 
-        }
-
+    }
 </script>
 </body>
 </html>
