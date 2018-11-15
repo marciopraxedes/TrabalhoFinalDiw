@@ -43,7 +43,7 @@ var dbVeiculos = {
                 let novoId = db.registros[db.registros.length - 1].id + 1;
                 let novoVeiculo = {
                     "id": novoId,
-                    "nome": veiculo.veiculo,
+                    "veiculo": veiculo.veiculo,
                     "versao": veiculo.versao,
                     "montadora": veiculo.montadora,
                     "ano": veiculo.ano,
@@ -77,3 +77,13 @@ var dbVeiculos = {
                 // Atualiza os dados no Local Storage
                 localStorage.setItem('db', JSON.stringify(db));
             }
+
+        function deletarRegistro(id) {    
+                // Filtra o array removendo o elemento com o id passado
+                db.registros = db.registros.filter(function (element) { return element.id != id });
+            
+                displayMessage("Registro deletado");
+            
+                // Atualiza os dados no Local Storage
+                localStorage.setItem('db', JSON.stringify(db));
+            }            

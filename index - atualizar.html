@@ -85,6 +85,15 @@
                                         <label for="inputFipe">Preço tabela FIPE (*)</label>
                                         <input type="text" class="form-control" id="inputFipe" required placeholder="Preço">
                                 </div>  
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">Upload</span>
+                                    </div>
+                                    <div class="custom-file">
+                                      <input type="file" class="custom-file-input" id="inputImagem">
+                                      <label class="custom-file-label" for="inputImagem">Escolha o arquivo</label>
+                                    </div>
+                                  </div> 
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-4">
@@ -103,7 +112,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-              <input type="button" class="btn btn-success" id="btnInsert" value="Novo Cadastro">
+              <input type="button" class="btn btn-success" id="btnInsert" value="Confirmar">
               
             </div>
           </div>
@@ -120,11 +129,6 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Nome</th>
                                     <th scope="col">Versao</th>
-                                    <th scope="col">Montadora</th>
-                                    <th scope="col">Ano</th>
-                                    <th scope="col">Combustivel</th>
-                                    <th scope="col">Potencia</th>
-                                    <th scope="col">Fipe</th>
                                     <th scope="col">-</th>
                                 </tr>
                             </thead>
@@ -152,7 +156,7 @@
             for (i = 0; i < db.registros.length; i++) {
                 let registro = db.registros[i];
                 
-                $("#table-veiculos").append(`<tr><td scope="row">${registro.id}</td><td>${registro.veiculo}</td><td>${registro.versao}</td><td>${registro.montadora}</td><td>${registro.ano}</td><td>${registro.combustivel}</td><td>${registro.potencia}</td><td>${registro.fipe}</td><td><button type="button" class="btn btn-primary" id="btnUpdate" data-toggle="modal" data-target="#exampleModal">Modificar</button></td></tr>`);
+                $("#table-veiculos").append(`<tr><td scope="row">${registro.id}</td><td>${registro.veiculo}</td><td>${registro.versao}</td><td><button type="button" class="btn btn-primary" id="btnUpdate" data-toggle="modal" data-target="#exampleModal">Modificar</button></td></tr>`);
 
             }
         }
