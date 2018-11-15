@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home</title>
+    <title>Registros</title>
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="stylesheet" href="css/bootstrap.css">
 
+
+
 </head>
-<body onload="init()">
+<body onload="exibirRegistros()">
     <div class="container">
             <div class="jumbotron">
                     <h1 class="display-4"><b>Sistema de cadastro de veículos </b></h1>
@@ -22,12 +24,96 @@
                             <a class="flex-sm-fill text-sm-center nav-link" href="ficha.html">Ficha</a>
                             <a class="flex-sm-fill text-sm-center nav-link" href="registros.html">Registros</a>
                         </nav>
-            </div>   
+            </div> 
             
-            
-        
+<h2>Cadastre aqui</h2>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Launch demo modal
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Fim - Modal para registro -->
+
+<!-- inicio - Tabela -->
+            <div class="row">
+                    <div class="col-sm-12">
+                        <table id="grid-veiculos" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nome</th>
+                                    <th scope="col">Versao</th>
+                                    <th scope="col">Montadora</th>
+                                    <th scope="col">Ano</th>
+                                    <th scope="col">Combustivel</th>
+                                    <th scope="col">Potencia</th>
+                                    <th scope="col">Fipe</th>
+                                    <th scope="col">-</th>
+                                    <th scope="col">-</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-veiculos">
+                                <tr>
+                                    <td scope="row">1</th>
+                                        
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
     </div>   
-    <script type="text/javascript" src="js/db.js"></script>
+<!-- Fim - Tabela -->
+
+    <script type="text/javascript" src="js/dados.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+    <script>    
+         
+        // Inicio - Exibição de Registros
+        function exibirRegistros() {
+            $("#table-veiculos").html("");
+            
+            let btn = '<input type="button" class="btn btn-success" id="btnInsert" value="Inserir">';
+                
+            for (i = 0; i < db.registros.length; i++) {
+                let registro = db.registros[i];
+                
+                $("#table-veiculos").append(`<tr><td scope="row">${registro.id}</td><td>${registro.veiculo}</td><td>${registro.versao}</td><td>${registro.montadora}</td><td>${registro.ano}</td><td>${registro.combustivel}</td><td>${registro.potencia}</td><td>${registro.fipe}</td><td><input type="button" onclick="alterar()"  class="btn btn-warning" id="btnUpdate" value="Alterar"></td></td><td><input type="button" class="btn btn-danger" id="btnDelete" value="Excluir"></tr>`);
+
+            }
+        }
+        // Fim - Exibição dos Registros
+        
+        
+
+
+        // Inicio - Inserção de Registros
+
+        function inserirRegistros() {
+
+        }
+
+</script>
 </body>
 </html>
