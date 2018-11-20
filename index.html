@@ -12,6 +12,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="js/bootstrap.js"></script>
   
+    <script>
+
+    </script>
 </head>
 <body onload="iniciar()">
 
@@ -49,9 +52,19 @@
             </div>
             <div class="modal-body">
                 <!-- Inicio do form -->
+                <div class="container-fluid">
                     <form id="form-veiculo">
                             <div class="form-group row">
-                                <div class="col-sm-4">
+                                <div class="img">
+                                    <img id="imgVeiculo" src="" width="100px" alt="">                               
+                                </div> 
+                                <div class="input-group">
+                                        <div class="custom-file">
+                                          <input type="file" name="imagemVeiculo" id="inputImg" class="custom-file-input" onchange="carregaImg()">
+                                          <label class="custom-file-label" for="inputGroupFile02">Escolha um arquivo</label>
+                                        </div>
+                                      </div>                       
+                                <div class="col-sm-5">
                                     <label for="inputId">Id</label>
                                     <input type="text" class="form-control" id="inputId" placeholder="ID" disabled>
                                 </div>
@@ -99,6 +112,7 @@
                                 </div>
                             </div>
                         </form>
+                    </div>
                         <!-- Final do form -->
             </div>
             <div class="modal-footer">
@@ -126,6 +140,7 @@
                                     <th scope="col">Potencia</th>
                                     <th scope="col">Fipe</th>
                                     <th scope="col">-</th>
+                                    <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody id="table-veiculos">
@@ -152,11 +167,25 @@
             for (i = 0; i < db.registros.length; i++) {
                 let registro = db.registros[i];
                 
-                $("#table-veiculos").append(`<tr><td scope="row">${registro.id}</td><td>${registro.veiculo}</td><td>${registro.versao}</td><td>${registro.montadora}</td><td>${registro.ano}</td><td>${registro.combustivel}</td><td>${registro.potencia}</td><td>${registro.fipe}</td><td><button type="button" class="btn btn-primary" id="btnUpdate" data-toggle="modal" data-target="#exampleModal">Modificar</button></td></tr>`);
+                $("#table-veiculos").append(`<tr><td scope="row">${registro.id}</td><td>${registro.veiculo}</td><td>${registro.versao}</td><td>${registro.montadora}</td><td>${registro.ano}</td><td>${registro.combustivel}</td><td>${registro.potencia}</td><td>${registro.fipe}</td><td>${registro.imagem}</td><td><button type="button" class="btn btn-primary" id="btnUpdate" data-toggle="modal" data-target="#exampleModal">Modificar</button></td></tr>`);
 
             }
         }
         // Fim - Exibição dos Registros
+
+        // Inicio - Carregar imagem
+        function carregaImg(){
+            let files = document.getElementById('inputImg').files;
+            if (FileReader && files && files.length) {
+                var fr = new FileReader();
+                fr.onload = function(){
+                    document.getElementById('imgVeiculo').src = fr.result;
+                }
+                fr.readAsDataURL(files[0]);
+            }
+        }
+        // Fim - Carregar imagem
+
         function iniciar(){     
             // Adiciona funções para tratar os eventos 
             $("#btnInsert").click(function () {
@@ -167,6 +196,7 @@
                 }
 
                 // Obtem os valores dos campos do formulário
+                
                 let campoNome = $("#inputNome").val();
                 let campoVersao = $("#inputVersao").val();
                 let campoMontadora = $('#inputMontadora').val();
@@ -174,8 +204,9 @@
                 let campoCombustivel = $('#inputCombustivel').val();
                 let campoPotencia = $('#inputPotencia').val();
                 let campoFipe = $('#inputFipe').val();
+                let campoImagem = $("#inputImg").val();
 
-                let veiculo = { veiculo: campoNome, versao: campoVersao, montadora: campoMontadora, ano: campoAno, combustivel: campoCombustivel, potencia: campoPotencia, fipe: campoFipe };
+                let veiculo = { veiculo: campoNome, versao: campoVersao, montadora: campoMontadora, ano: campoAno, combustivel: campoCombustivel, potencia: campoPotencia, fipe: campoFipe, imagem: campoImagem };
 
                 inserirRegistros(veiculo);
 
@@ -201,8 +232,9 @@
                 let campoCombustivel = $('#inputCombustivel').val();
                 let campoPotencia = $('#inputPotencia').val();
                 let campoFipe = $('#inputFipe').val();
+                let campoImagem = $('#inputImg');
 
-                let veiculo = { veiculo: campoNome, versao: campoVersao, montadora: campoMontadora, ano: campoAno, combustivel: campoCombustivel, potencia: campoPotencia, fipe: campoFipe };
+                let veiculo = { veiculo: campoNome, versao: campoVersao, montadora: campoMontadora, ano: campoAno, combustivel: campoCombustivel, potencia: campoPotencia, fipe: campoFipe, imagem: campoImagem };
 
                 alterarRegistro(parseInt(campoId), veiculo);
 
@@ -241,6 +273,7 @@
                 $("#inputCombustivel").val(linhaVeiculo.childNodes[5].firstChild.nodeValue);
                 $("#inputPotencia").val(linhaVeiculo.childNodes[6].firstChild.nodeValue);
                 $("#inputFipe").val(linhaVeiculo.childNodes[7].firstChild.nodeValue);
+                $("#inputImg").val(linhaVeiculo.childNodes[8].firstChild.nodeValue);
             });
 
             exibirRegistros();
@@ -254,6 +287,7 @@
             });
            
     }
+
 </script>
 </body>
 </html>
