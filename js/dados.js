@@ -24,7 +24,7 @@ var dbVeiculos = {
         "combustivel": "gas/alcool",
         "potencia": "80cv",
         "fipe": "R$ 34 000,00",
-        "imagem": "teste"         
+        "imagem": "amarok.jpg"         
         },
 ]
 }
