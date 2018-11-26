@@ -9,23 +9,45 @@ var dbVeiculos = {
         "versao": "Tech-Run",
         "montadora": "Renault",
         "ano": "2014",
-        "combustivel": "gas/alcool",
+        "combustivel": "Gas/alcool",
         "potencia": "80cv",
         "fipe": "R$ 34 000,00",
-        "imagem": "Sandero.jpg"       
+        "imagem": "img/Sandero.jpg"       
+        },
+        {        
+        "id": 2,
+        "veiculo": "Palio",
+        "versao": "Weekend",
+        "montadora": "Fiat",
+        "ano": "2017",
+        "combustivel": "Gasolina",
+        "potencia": "104cv",
+        "fipe": "R$ 46 000,00",
+        "imagem": "img/palio-weekend.jpg"       
         },
 
         {  
-        "id": 2,
-        "veiculo": "Sandero",
-        "versao": "Tech-Run",
-        "montadora": "Renault",
-        "ano": "2014",
-        "combustivel": "gas/alcool",
-        "potencia": "80cv",
-        "fipe": "R$ 34 000,00",
-        "imagem": "amarok.jpg"         
+        "id": 3,
+        "veiculo": "Hillux",
+        "versao": "Turbo",
+        "montadora": "Toyota",
+        "ano": "2018",
+        "combustivel": "Gasolina",
+        "potencia": "170cv",
+        "fipe": "R$ 145 000,00",
+        "imagem": "img/hillux.jpg"         
         },
+        {  
+                "id": 4,
+                "veiculo": "Amarok",
+                "versao": "TDI V6",
+                "montadora": "Volkswagen",
+                "ano": "2018",
+                "combustivel": "Gasolina",
+                "potencia": "206cv",
+                "fipe": "R$ 187 990,00",
+                "imagem": "img/amarok.jpg"         
+                },
 ]
 }
 
