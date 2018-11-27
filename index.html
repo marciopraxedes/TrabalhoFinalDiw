@@ -22,15 +22,8 @@
     <div class="container">
             <div class="jumbotron">
                     <h1 class="display-4"><b>Sistema de cadastro de veículos </b></h1>
+                    <br>
                     <p class="lead">Márcio Júnio Praxedes</p>
-                    <hr class="my-4">
-                    <p>Selecione uma das opções abaixos</p>
-                        <nav class="nav nav-pills flex-column flex-sm-row">
-                            <a class="flex-sm-fill text-sm-center nav-link active" href="index.html">Home</a>
-                            <a class="flex-sm-fill text-sm-center nav-link" href="cadastro.html">Cadastro</a>
-                            <a class="flex-sm-fill text-sm-center nav-link" href="ficha.html">Ficha</a>
-                            <a class="flex-sm-fill text-sm-center nav-link" href="registros.html">Registros</a>
-                        </nav>
             </div> 
 <!-- Fim do menu            -->
 
@@ -122,6 +115,85 @@
         </div>
       </div>
 
+      <div class="modal fade bd-example-modal-lg" id="modalFicha" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Preencha os dados do veículo</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <!-- Inicio do form -->
+                <div class="container-fluid">
+                    <form id="form-veiculo">
+                            <div class="form-group row">
+                                <div class="img">
+                                    <img id="imgVeiculo" src="" class="rounded float-right" width="100px" alt="">                               
+                                </div> 
+                                <div class="input-group">
+                                        <div class="custom-file">
+                                          <input type="file" name="imagemVeiculo" id="inputImgFicha" class="custom-file-input" onchange="carregaImg()">
+                                          <label class="custom-file-label" for="inputGroupFile02">Escolha um arquivo</label>
+                                        </div>
+                                      </div>                       
+                                <div class="col-sm-5">
+                                    <label for="inputIdFicha">Id</label>
+                                    <input type="text" class="form-control" id="inputIdFicha" placeholder="ID" disabled>
+                                </div>
+                                <div class="col-sm-5">
+                                    <label for="inputNomeFicha">Nome (*)</label>
+                                    <input type="text" class="form-control" id="inputNomeFicha" required placeholder="Informe o nome do veículo" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-5">
+                                    <label for="inputVersao">Versão (*)</label>
+                                    <input type="text" class="form-control" id="inputVersaoFicha" required placeholder="Versao" disabled>
+                                </div>
+                                <div class="col-sm-5">
+                                    <label for="inputMontadoraFicha">Montadora (*)</label>
+                                    <input type="text" class="form-control" id="inputMontadoraFicha" required placeholder="Montatora" disabled>
+                                </div>
+                                <div class="col-sm-5">
+                                    <label for="inputAnoFicha">Ano (*)</label>
+                                    <input type="number" class="form-control" id="inputAnoFicha" required placeholder="Ano" disabled>
+                                </div> 
+                                <div class="col-sm-5">
+                                        <label for="inputCombustivelFicha">Combustivel (*)</label>
+                                        <input type="text" class="form-control" id="inputCombustivelFicha" required placeholder="Combustivel" disabled>
+                                    </div>                                  
+                                <div class="col-sm-5">
+                                        <label for="inputPotenciaFicha">Potência (*)</label>
+                                        <input type="text" class="form-control" id="inputPotenciaFicha" required placeholder="Potência" disabled>
+                                </div>
+                                <div class="col-sm-5">
+                                        <label for="inputFipeFicha">Preço tabela FIPE (*)</label>
+                                        <input type="text" class="form-control" id="inputFipeFicha" required placeholder="Preço" disabled>
+                                </div>  
+                            </div>
+                            <div class="col-sm-10">
+                                <img id="imgVeiculo" src="" class="img-thumbnail text-center" alt="">                               
+                            </div>  
+                            <div class="form-group row">
+                                <div class="col-sm-12">                                    
+                                    <button type="button" data-dismiss="modal" class="btn btn-warning" id="btnUpdate" data-toggle="modal" data-target="#exampleModal">Alterar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                        <!-- Final do form -->
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
 
 <!-- inicio - Tabela -->
             <div class="row">
@@ -165,7 +237,7 @@
             for (i = 0; i < db.registros.length; i++) {
                 var registro = db.registros[i];
                 
-                $("#table-veiculos").append(`<tr><td scope="row">${registro.id}</td><td>${registro.veiculo}</td><td>${registro.versao}</td><td>${registro.montadora}</td><td>${registro.ano}</td><td>${registro.combustivel}</td><td>${registro.potencia}</td><td>${registro.fipe}</td><td><img id="${registro.id}img" src="${registro.imagem}" width="50px"/></td><td><button type="button" class="btn btn-primary" id="btnUpdate" data-toggle="modal" data-target="#exampleModal">Modificar</button></td></tr>`);
+                $("#table-veiculos").append(`<tr><td scope="row">${registro.id}</td><td>${registro.veiculo}</td><td>${registro.versao}</td><td>${registro.montadora}</td><td>${registro.ano}</td><td>${registro.combustivel}</td><td>${registro.potencia}</td><td>${registro.fipe}</td><td><img id="${registro.id}img" src="${registro.imagem}" width="50px"/></td><td><button type="button" class="btn btn-primary" id="btnVer" data-toggle="modal" data-target="#modalFicha">Ver</button></td><td><button type="button" class="btn btn-primary" id="btnUpdate" data-toggle="modal" data-target="#exampleModal">Modificar</button></td></tr>`);
 
             }
         }
@@ -219,6 +291,7 @@
                 // Intercepta o click do botão Alterar
                 $("#btnUpdate").click(function () {
                     document.getElementById("imgVeiculo").src = $('#inputImg').val();
+                    
 
                 // Obtem os valores dos campos do formulário
                 let campoId = $("#inputId").val();
@@ -233,7 +306,7 @@
                 let campoCombustivel = $('#inputCombustivel').val();
                 let campoPotencia = $('#inputPotencia').val();
                 let campoFipe = $('#inputFipe').val();
-                let campoImagem = $('#inputImg').val();
+                let campoImagem = document.getElementById("imgVeiculo").src;
 
                 let veiculo = { veiculo: campoNome, versao: campoVersao, montadora: campoMontadora, ano: campoAno, combustivel: campoCombustivel, potencia: campoPotencia, fipe: campoFipe, imagem: campoImagem };
 
@@ -267,7 +340,6 @@
                 // Preenche o formulário quando o usuario clicar em uma linha da tabela 
                 $("#grid-veiculos").on("click", "tr", function (e) {
                 let linhaVeiculo = this;
-                
                 $("#inputId").val(linhaVeiculo.childNodes[0].firstChild.nodeValue);
                 $("#inputNome").val(linhaVeiculo.childNodes[1].firstChild.nodeValue);
                 $("#inputVersao").val(linhaVeiculo.childNodes[2].firstChild.nodeValue);
@@ -277,6 +349,16 @@
                 $("#inputPotencia").val(linhaVeiculo.childNodes[6].firstChild.nodeValue);
                 $("#inputFipe").val(linhaVeiculo.childNodes[7].firstChild.nodeValue);
                 $("#inputImg").val(linhaVeiculo.childNodes[8].firstChild.nodeValue);
+
+                $("#inputIdFicha").val(linhaVeiculo.childNodes[0].firstChild.nodeValue);
+                $("#inputNomeFicha").val(linhaVeiculo.childNodes[1].firstChild.nodeValue);
+                $("#inputVersaoFicha").val(linhaVeiculo.childNodes[2].firstChild.nodeValue);
+                $("#inputMontadoraFicha").val(linhaVeiculo.childNodes[3].firstChild.nodeValue);
+                $("#inputAnoFicha").val(linhaVeiculo.childNodes[4].firstChild.nodeValue);
+                $("#inputCombustivelFicha").val(linhaVeiculo.childNodes[5].firstChild.nodeValue);
+                $("#inputPotenciaFicha").val(linhaVeiculo.childNodes[6].firstChild.nodeValue);
+                $("#inputFipeFicha").val(linhaVeiculo.childNodes[7].firstChild.nodeValue);
+                $("#inputImgFicha").val(linhaVeiculo.childNodes[8].firstChild.nodeValue);
                 
             });
 

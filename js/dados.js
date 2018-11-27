@@ -54,7 +54,7 @@ var dbVeiculos = {
         //Recupera os dados do local Storage, caso exita.
         var db = JSON.parse(localStorage.getItem('db'));
         if (!db) {
-        db = dbVeiculos
+        db = dbVeiculos;
         };
 
         // Exibe mensagem em um elemento de ID msg
